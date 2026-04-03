@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FocusFlow - A modern Pomodoro timer and task management app to boost your productivity">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>FocusFlow - Pomodoro Timer & Task Manager</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <h1>FocusFlow</h1>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Timer Section -->
+    <section class="timer-section">
+      <div class="timer-mode" id="timerMode">Focus</div>
+      <div class="timer-container">
+        <svg class="progress-ring" viewBox="0 0 200 200">
+          <circle class="progress-ring-bg" cx="100" cy="100" r="90"></circle>
+          <circle class="progress-ring-circle" id="progressRing" cx="100" cy="100" r="90"></circle>
+        </svg>
+        <div class="timer-display" id="timerDisplay">25:00</div>
+      </div>
+      <div class="timer-controls">
+        <button class="btn btn-primary" id="startBtn">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          Start
+        </button>
+        <button class="btn btn-secondary" id="pauseBtn" disabled>
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <rect x="6" y="4" width="4" height="16"></rect>
+            <rect x="14" y="4" width="4" height="16"></rect>
+          </svg>
+          Pause
+        </button>
+        <button class="btn btn-ghost" id="resetBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="1 4 1 10 7 10"></polyline>
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+          </svg>
+          Reset
+        </button>
+      </div>
+    </section>
+
+    <!-- Task Section -->
+    <section class="task-section">
+      <h2 class="section-title">Tasks</h2>
+      <form class="task-form" id="taskForm">
+        <input 
+          type="text" 
+          class="task-input" 
+          id="taskInput" 
+          placeholder="Add a new task..." 
+          autocomplete="off"
+        >
+        <button type="submit" class="btn btn-primary btn-add">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Add
+        </button>
+      </form>
+      <ul class="task-list" id="taskList">
+        <!-- Tasks will be rendered here -->
+      </ul>
+      <div class="empty-state" id="emptyState">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+        </svg>
+        <p>No tasks yet</p>
+        <span>Add your first task to get started</span>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <h2 class="section-title">Statistics</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon completed-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-value" id="completedTasks">0</span>
+            <span class="stat-label">Tasks Completed</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon focus-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-value" id="focusSessions">0</span>
+            <span class="stat-label">Focus Sessions</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Stay focused, stay productive</p>
+    </footer>
+  </div>
+
+  <!-- Audio for notification -->
+  <audio id="notificationSound" preload="auto">
+    <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2teleAAFl+vbr2gNIHOs7vGFLQAAl+zfrmINF3O38vSNMAANePHjuXEQDm+58O+HKwAUgPDewWkLCHC88PKEJQAehfPdx3ICBHbC8++BHwAqjfXc0nwDA33I8+x+GgA2lfjb3IIDBoHM9Oh7FQBCnPrZ5YoECIXQ9eV4EABOn/zY7JAFC4nT9uF1CwBZpP7X9pcGDo3W9t1yCQBkqf/W/p0HEpHZ9tlvBQBwrv/VBqQIF5Tb9dVsAgB7s//VDqoJGpje9dFpAACHuP/UF7EKHZvg9c1lAACSvP/UILIKHZ7i9clhAACdwf/TKrkLH6Hk9cVdAACoxtLUMr8MIaTm9cBZAACzzNLUO8YNI6bo9bxVAAC+0NLURcwOJajp9bhRAAnJ1c/UT9MPKK3r9bRNABTU2s3UWNkQK7Ds9LAIASDf383UYd8RLrPu9asBAS/q5MvUauURMbXv9aYAADr16cnUdOwSNLjx9qEAAEb/7sfUffITN7ry9pwAAFIJ9MXUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="audio/wav">
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
